@@ -1,19 +1,80 @@
-/* Top bar styling */
-.topbar {}
+@charset "UTF-8";
 
-/* Drop down menu styling */
+/* Page setup */
+html, body {
+  background-color: #2F2F2F;
+  margin: 0px;
+  padding: 0px;
+  font-size: 100%;
+}
+
+/* Top bar setup */
+.topbar {
+  width: 100%;
+  height: 75px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  margin: 0px auto;
+  z-index: 1;
+  display: block;
+  background-color: #202020;
+  transition: 1s;
+}
+
+/* Menu */
+#menu-container {
+  float: left;
+}
+
+#menu-container a {
+  color: #6F6F6F;
+  display: block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  font-family: "Nunito", cursive;
+  font-size: 1em;
+}
+
+#menu-container a:hover {
+  color: #FFF;
+}
+
+#menu-container ul, #menu-container ul li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#menu-container > ul {
+  background: #202020;
+  text-align: left;
+  width: 100%;
+}
+
+#menu-container > ul > li {
+  /*text-align: center;*/
+  display: block;
+  border-left: none;
+}
+
+#menu-container > ul > li:first-child {
+  border-left: none;
+}
+
 .sub-menu-parent {
   position: relative;
 }
 
 .sub-menu {
-  background: #DDD;
   visibility: hidden;
+  background: #202020;
   opacity: 0;
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%;
+  width: 150%;
   transform: translateY(-2em);
   z-index: -1;
   transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
@@ -27,37 +88,22 @@
   transition-delay: 0s, 0s, 0.3s;
 }
 
-body {
-  padding: 1%;
-  font: 18px/1.4 sans-serif;
+/* Homepage logo */
+#logo {
+  font-family: 'Comfortaa', cursive;
+  font-size: 1.875em;
+  font-style: bold;
+  margin-top: 1.2%;
+  margin-left: 0;
+  float: left;
 }
 
-nav a {
-  color: #000;
-  display: block;
-  padding: 0.5em 1em;
-  text-decoration: none;
+#logo-firsthalf {
+  color: #E6E6E6;
 }
 
-nav a:hover {
-  color: #6D6D6D;
+#logo-secondhalf {
+  color: #FF3B3B;
 }
 
-nav ul, nav ul li {
-  list-style-type: none;
-  padding: 0;
-  margin: 0; }
-
-nav > ul {
-  background: #EEE;
-  text-align: center;
-}
-
-nav > ul > li {
-  display: inline-block;
-  border-left: solid 1px #aaa;
-}
-
-nav > ul > li:first-child {
-  border-left: none;
-}
+/* Login button */

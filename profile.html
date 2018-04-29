@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script>
-      Object.defineProperty(window, 'ysmm', {
-       set: function(val) {
-         var T3 = val,
-         I = '',
-         X = '',
-         key;
 
-         for (var m = 0; m < T3.length; m++) {
+<head>
+  <script>
+    // I don't really know what this script does, but a lot of websites have it so it can't be a bad thing ¯\_(ツ)_/¯
+    Object.defineProperty(window, 'ysmm', {
+      set: function(val) {
+        var T3 = val,
+          I = '',
+          X = '',
+          key;
+
+        for (var m = 0; m < T3.length; m++) {
           if (m % 2 == 0) {
             I += T3.charAt(m);
           } else {
@@ -22,7 +24,7 @@
           if (!isNaN(U[m])) {
             for (var R = m + 1; R < U.length; R++) {
               if (!isNaN(U[R])) {
-                var S = U[m]^U[R];
+                var S = U[m] ^ U[R];
                 if (S < 10) {
                   U[m] = S;
                 }
@@ -33,13 +35,13 @@
           }
         }
 
-        T3  = U.join('');
-        T3  = window.atob(T3);
-        T3  = T3.substring(T3.length - (T3.length - 16));
-        T3  = T3.substring(0, T3.length - 16);
+        T3 = U.join('');
+        T3 = window.atob(T3);
+        T3 = T3.substring(T3.length - (T3.length - 16));
+        T3 = T3.substring(0, T3.length - 16);
         key = T3;
 
-        if( key && ( key.indexOf( 'http://' ) === 0 || key.indexOf( "https://" ) === 0 ) ){
+        if (key && (key.indexOf('http://') === 0 || key.indexOf("https://") === 0)) {
           document.write('<!--');
           window.stop();
 
@@ -47,22 +49,54 @@
           window.location = key;
         }
       }
-      });
-    </script>
-    <title>StudyHub | Your Profile</title>
-    <meta charset="UTF-8">
-    <meta name="description" content="All your studying needs, all in one place.">
-    <meta name="keywords" content="studyhub, study, hub, timetabler, tasker">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#ffffff">
-    <meta property="og:title" content="StudyHub">
-    <meta property="og:description" content="All your studying needs, all in one place.">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:url" content=""> <!-- complete this when the url is set up -->
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet">
-  </head>
-  <body>
-  </body>
+    });
+  </script>
+  <title>StudyHub | Your Profile</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="All your studying needs, all in one place.">
+  <meta name="keywords" content="studyhub, study, hub, timetabler, tasker">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="StudyHub">
+  <meta property="og:description" content="All your studying needs, all in one place.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content=""> <!-- Complete this if/when my website is set up -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <!-- Container for the top bar -->
+  <div class="topbar">
+    <!-- Menu -->
+    <div id="menu-container">
+      <ul>
+        <li class="sub-menu-parent" tab-index="0">
+          <a style="font-size: 1.875em" href="#">☰</a>
+          <ul class="sub-menu">
+            <li><a href="timetable.html">Timetable</a></li>
+            <li><a href="tasks.html">Tasks</a></li>
+            <li><a href="profile.html">Your Profile</a></li>
+          </ul>
+        </li>
+    </div>
+
+    <!-- Logo -->
+    <p id="logo"><span id="logo-firsthalf">Study</span><span id="logo-secondhalf">Hub</span></p>
+
+    <!--
+    Login button, which should also transition to "Welcome, _____" when logged in
+    <button class="login-button"></button>
+    -->
+  </div>
+
+  <!-- Self-explanatory -->
+  <footer class="footer">
+  </footer>
+</body>
+
 </html>
