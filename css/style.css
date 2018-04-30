@@ -107,3 +107,22 @@ html, body {
 }
 
 /* Login button */
+#login-button {
+  width: auto;
+  margin-top: 0.75%;
+  margin-right: 1%;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  float: right;
+  cursor: pointer;
+  background-color: #FF3B3B;
+  font-family: 'Nunito', cursive;
+  font-size: 1.25em;
+  color: white;
+  transition: 1s;
+}
+
+#login-button:hover {
+  background-color: #FF6666;
+}
