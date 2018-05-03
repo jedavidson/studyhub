@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
+/*////////////*/
 /* Page setup */
+/*////////////*/
+
 html, body {
   background-color: #2F2F2F;
   margin: 0px;
@@ -8,7 +11,10 @@ html, body {
   font-size: 100%;
 }
 
+/*///////////////*/
 /* Top bar setup */
+/*///////////////*/
+
 .topbar {
   width: 100%;
   height: 75px;
@@ -16,6 +22,7 @@ html, body {
   top: 0px;
   left: 0px;
   right: 0px;
+  bottom: 0px;
   margin: 0px auto;
   z-index: 1;
   display: block;
@@ -23,7 +30,10 @@ html, body {
   transition: 1s;
 }
 
+/*//////*/
 /* Menu */
+/*//////*/
+
 #menu-container {
   float: left;
 }
@@ -54,7 +64,6 @@ html, body {
 }
 
 #menu-container > ul > li {
-  /*text-align: center;*/
   display: block;
   border-left: none;
 }
@@ -88,25 +97,31 @@ html, body {
   transition-delay: 0s, 0s, 0.3s;
 }
 
+/*///////////////*/
 /* Homepage logo */
+/*///////////////*/
+
 #logo {
   font-family: 'Comfortaa', cursive;
   font-size: 1.875em;
-  font-style: bold;
-  margin-top: 1.2%;
-  margin-left: 0;
+  position: absolute;
   float: left;
+  margin-top: 1.2%;
+  margin-left: 4%;
 }
 
-#logo-firsthalf {
+#silver-firsthalf {
   color: #E6E6E6;
 }
 
-#logo-secondhalf {
+#red-secondhalf {
   color: #FF3B3B;
 }
 
+/*//////////////*/
 /* Login button */
+/*//////////////*/
+
 #login-button {
   width: auto;
   margin-top: 0.75%;
@@ -125,4 +140,27 @@ html, body {
 
 #login-button:hover {
   background-color: #FF6666;
+}
+
+/*////////*/
+/* Slogan */
+/*////////*/
+
+#slogan {
+  font-family: 'Comfortaa', cursive;
+  font-size: 3.75em;
+  text-align: center;
+  margin-top: 150px;
+}
+
+/*///////////////////////////*/
+/* Timetable and tasks icons */
+/*///////////////////////////*/
+
+#big-buttons {
+  display: inline-block;
+}
+
+.big_button {
+  float: left;
 }
