@@ -8,7 +8,7 @@ html, body {
   background-color: #2F2F2F;
   margin: 0px;
   padding: 0px;
-  font-size: 100%;
+  font-size: 100%; /* For relative (em scale) font sizes: 1em = 100% = browser default font size */
 }
 
 /*///////////////*/
@@ -27,7 +27,6 @@ html, body {
   z-index: 1;
   display: block;
   background-color: #202020;
-  transition: 1s;
 }
 
 /*//////*/
@@ -103,11 +102,11 @@ html, body {
 
 #logo {
   font-family: 'Comfortaa', cursive;
-  font-size: 1.875em;
+  font-size: 1.875em; /* 1.875em = 1.875 * browser default font size */
   position: absolute;
   float: left;
-  margin-top: 1.2%;
-  margin-left: 4%;
+  margin-top: 22px;
+  margin-left: 75px;
 }
 
 #silver-firsthalf {
@@ -124,8 +123,8 @@ html, body {
 
 #login-button {
   width: auto;
-  margin-top: 0.75%;
-  margin-right: 1%;
+  margin-top: 13px;
+  margin-right: 22px;
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
@@ -133,7 +132,7 @@ html, body {
   cursor: pointer;
   background-color: #FF3B3B;
   font-family: 'Nunito', cursive;
-  font-size: 1.25em;
+  font-size: 1.25em; /* 1.25em = 1.25 * default font size */
   color: white;
   transition: 1s;
 }
@@ -148,7 +147,7 @@ html, body {
 
 #slogan {
   font-family: 'Comfortaa', cursive;
-  font-size: 3.75em;
+  font-size: 3.75em; /* 3.75em = 3.75 * default font size */
   text-align: center;
   margin-top: 150px;
 }
@@ -158,9 +157,10 @@ html, body {
 /*///////////////////////////*/
 
 #big-buttons {
-  display: inline-block;
+  text-align: center;
 }
 
-.big_button {
+#big_buttons img {
+  display: inline-block;
   float: left;
 }
