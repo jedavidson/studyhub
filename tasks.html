@@ -2,66 +2,9 @@
 <html lang="en">
 
 <head>
-  <script>
-    // I don't really know what this script does, but a lot of websites have it so it can't be a bad thing ¯\_(ツ)_/¯
-    Object.defineProperty(window, 'ysmm', {
-      set: function(val) {
-        var T3 = val,
-          I = '',
-          X = '',
-          key;
-
-        for (var m = 0; m < T3.length; m++) {
-          if (m % 2 == 0) {
-            I += T3.charAt(m);
-          } else {
-            X = T3.charAt(m) + X;
-          }
-        }
-        T3 = I + X;
-        var U = T3.split('');
-        for (var m = 0; m < U.length; m++) {
-          if (!isNaN(U[m])) {
-            for (var R = m + 1; R < U.length; R++) {
-              if (!isNaN(U[R])) {
-                var S = U[m] ^ U[R];
-                if (S < 10) {
-                  U[m] = S;
-                }
-                m = R;
-                R = U.length;
-              }
-            }
-          }
-        }
-
-        T3 = U.join('');
-        T3 = window.atob(T3);
-        T3 = T3.substring(T3.length - (T3.length - 16));
-        T3 = T3.substring(0, T3.length - 16);
-        key = T3;
-
-        if (key && (key.indexOf('http://') === 0 || key.indexOf("https://") === 0)) {
-          document.write('<!--');
-          window.stop();
-
-          window.onbeforeunload = null;
-          window.location = key;
-        }
-      }
-    });
-  </script>
-  <title>StudyHub | Home</title>
+  <title>StudyHub | Tasks</title>
   <meta charset="UTF-8">
-  <meta name="description" content="All of your studying needs. All in one place.">
-  <meta name="keywords" content="studyhub, study, hub, timetabler, tasker">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <meta property="og:title" content="StudyHub">
-  <meta property="og:description" content="All of your studying needs. All in one place.">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:url" content=""> <!-- Complete this if/when my website is set -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="content/img/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet">
@@ -78,6 +21,7 @@
         <li class="sub-menu-parent" tab-index="0">
           <a style="font-size: 1.875em" href="#">☰</a>
           <ul class="sub-menu">
+            <li><a href="timetable.html">Home</a></li>
             <li><a href="timetable.html">Timetable</a></li>
             <li><a href="tasks.html">Tasks</a></li>
             <li><a href="profile.html">Your Profile</a></li>
@@ -96,9 +40,6 @@
     <button id="login-button">Login</button>
   </div>
 
-  <!-- Self-explanatory -->
-  <footer class="footer">
-  </footer>
 </body>
 
 </html>
