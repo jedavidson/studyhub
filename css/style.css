@@ -1,8 +1,6 @@
 @charset "UTF-8";
 
-/*////////////*/
 /* Page setup */
-/*////////////*/
 
 html, body {
   background-color: #2F2F2F;
@@ -11,9 +9,7 @@ html, body {
   font-size: 100%; /* For relative (em scale) font sizes: 1em = 100% = browser default font size */
 }
 
-/*///////////////*/
 /* Top bar setup */
-/*///////////////*/
 
 .topbar {
   width: 100%;
@@ -29,16 +25,14 @@ html, body {
   background-color: #202020;
 }
 
-/*//////*/
 /* Menu */
-/*//////*/
 
 #menu-container {
   float: left;
 }
 
 #menu-container a {
-  color: #6F6F6F;
+  color: #E6E6E6;
   display: block;
   padding: 0.5em 1em;
   text-decoration: none;
@@ -47,7 +41,7 @@ html, body {
 }
 
 #menu-container a:hover {
-  color: #FFF;
+  color: #FF3B3B;
 }
 
 #menu-container ul, #menu-container ul li {
@@ -96,9 +90,7 @@ html, body {
   transition-delay: 0s, 0s, 0.3s;
 }
 
-/*///////////////*/
 /* Homepage logo */
-/*///////////////*/
 
 #logo {
   font-family: 'Comfortaa', cursive;
@@ -117,9 +109,7 @@ html, body {
   color: #FF3B3B;
 }
 
-/*//////////////*/
 /* Login button */
-/*//////////////*/
 
 #login-button {
   width: auto;
@@ -141,9 +131,7 @@ html, body {
   background-color: #FF6666;
 }
 
-/*////////*/
 /* Slogan */
-/*////////*/
 
 #slogan {
   font-family: 'Comfortaa', cursive;
@@ -152,9 +140,7 @@ html, body {
   margin-top: 150px;
 }
 
-/*///////////////////////////*/
 /* Timetable and tasks icons */
-/*///////////////////////////*/
 
 #big-buttons {
   text-align: center;
@@ -163,4 +149,10 @@ html, body {
 #big_buttons img {
   display: inline-block;
   float: left;
+}
+
+/* Option buttons for the timetable and tasks page */
+#option-buttons {
+  width: auto;
+  align: center;
 }
