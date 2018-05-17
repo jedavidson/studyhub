@@ -3,7 +3,8 @@
 /* Page setup */
 
 html, body {
-  background-color: #2F2F2F;
+  background-color: transparent;
+  /*background-color: #2F2F2F;*/
   margin: 0px;
   padding: 0px;
   font-size: 100%; /* For relative (em scale) font sizes: 1em = 100% = browser default font size */
@@ -23,6 +24,8 @@ html, body {
   z-index: 1;
   display: block;
   background-color: #202020;
+  -moz-box-shadow: 0 0 30px 5px #0E0E0E;
+  -webkit-box-shadow: 0 0 30px 5px #0E0E0E;
 }
 
 /* Menu */
@@ -113,22 +116,23 @@ html, body {
 
 #login-button {
   width: auto;
-  margin-top: 13px;
+  margin-top: 16px;
   margin-right: 22px;
-  padding: 10px 15px;
-  border: none;
+  padding: 5px 20px;
+  border: 2px solid white;
   border-radius: 4px;
   float: right;
   cursor: pointer;
-  background-color: #FF3B3B;
+  background-color: transparent;
   font-family: 'Nunito', cursive;
   font-size: 1.25em; /* 1.25em = 1.25 * default font size */
   color: white;
-  transition: 1s;
+  transition: 0.5s;
 }
 
 #login-button:hover {
-  background-color: #FF6666;
+  color: #FF3B3B;
+  border-color: #FF3B3B;
 }
 
 /* Slogan */
