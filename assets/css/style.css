@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 /* Page setup */
-
 html, body {
+  height: 100%;
   background-color: transparent;
   margin: 0px;
   padding: 0px;
@@ -12,6 +12,13 @@ html, body {
 /* Manual override for the tasks and timetable background colour */
 .other-body {
   background-color: #2F2F2F;
+}
+
+
+/* Drop shadow effect for elements with this class assigned*/
+.drop-shadow {
+  -moz-box-shadow: 0 0 30px 5px #0E0E0E;
+  -webkit-box-shadow: 0 0 30px 5px #0E0E0E;
 }
 
 /* Top bar setup */
@@ -24,19 +31,17 @@ html, body {
   right: 0px;
   bottom: 0px;
   margin: 0px auto;
-  z-index: 1;
+  z-index: 2;
   display: block;
   background-color: #202020;
-  -moz-box-shadow: 0 0 30px 5px #0E0E0E;
-  -webkit-box-shadow: 0 0 30px 5px #0E0E0E;
 }
 
 /* Menu */
-#menu-container {
+#menu-wrapper {
   float: left;
 }
 
-#menu-container a {
+#menu-wrapper a {
   color: #E6E6E6;
   display: block;
   padding: 0.5em 1em;
@@ -46,28 +51,28 @@ html, body {
   transition: 0.25s;
 }
 
-#menu-container a:hover {
+#menu-wrapper a:hover {
   color: #FF3B3B;
 }
 
-#menu-container ul, #menu-container ul li {
+#menu-wrapper ul, #menu-wrapper ul li {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-#menu-container > ul {
+#menu-wrapper > ul {
   background: #202020;
   text-align: left;
   width: 100%;
 }
 
-#menu-container > ul > li {
+#menu-wrapper > ul > li {
   display: block;
   border-left: none;
 }
 
-#menu-container > ul > li:first-child {
+#menu-wrapper > ul > li:first-child {
   border-left: none;
 }
 
@@ -114,28 +119,6 @@ html, body {
   color: #FF3B3B;
 }
 
-/* Login button */
-#login-button {
-  width: auto;
-  margin-top: 16px;
-  margin-right: 22px;
-  padding: 5px 20px;
-  border: 2px solid white;
-  border-radius: 4px;
-  float: right;
-  cursor: pointer;
-  background-color: transparent;
-  font-family: 'Nunito', cursive;
-  font-size: 1.25em; /* 1.25em = 1.25x default font size */
-  color: white;
-  transition: 0.25s;
-}
-
-#login-button:hover {
-  color: #FF3B3B;
-  border-color: #FF3B3B;
-}
-
 /* Slogan */
 #slogan {
   font-family: 'Comfortaa', cursive;
@@ -149,8 +132,67 @@ html, body {
   text-align: center;
 }
 
-/* Option buttons for the timetable and tasks page */
-#option-buttons {
-  width: auto;
-  align: center;
+/* Tasks wrapper */
+#tasks-wrapper {
+  height: 100%;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 75px;
+  background-color: transparent;
+}
+
+/* Tasks top bar */
+#tasks-topbar {
+  height: 75px;
+  margin-top: 75px;
+  width: 100%;
+  background-color: #6D6D6D;
+  display: block;
+}
+
+/* Tasks box header */
+#tasks-label {
+  font-family: "Nunito", cursive;
+  font-size: 1.875em; /* 1.875em = 1.875x browser default font size */
+  text-align: center;
+  color: #E6E6E6;
+  padding-top: 18px;
+  margin-left: 0px;
+}
+
+/* Column header wrapper */
+#column-header-wrapper {
+  height: 26px;
+  width: 100%;
+  padding-top: 0px;
+  background-color: #9A9A9A;
+  display: inline-block;
+}
+
+.column-header {
+  font-family: "Nunito", cursive;
+  font-size: 1em;
+  text-decoration: none;
+  color: #FFF;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#name-column-header {
+  padding-left: 0px;
+}
+
+#subject-column-header {
+
+}
+
+#date-column-header {
+
+}
+
+/* Base styling for a task */
+#task {
 }

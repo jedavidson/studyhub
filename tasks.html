@@ -5,18 +5,22 @@
   <title>StudyHub | Tasks</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="shortcut icon" href="content/img/favicon-tasks.ico">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa:400,700">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,700">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+  <link rel="shortcut icon" href="assets/img/favicon-tasks.ico">
+  <script src="assets/js/jquery-3.3.1.min.js"></script>
+  <script src="assets/js/dexie.min.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/database.js"></script>
+  <script src="assets/js/tasks.js"></script>
 </head>
 
 <body class="other-body">
-  <!-- Container for the top bar -->
+  <!-- The top bar -->
   <div class="topbar">
     <!-- Menu -->
-    <div id="menu-container">
+    <div id="menu-wrapper">
       <ul>
         <li class="sub-menu-parent" tab-index="0">
           <a style="font-size: 1.875em" href="#">☰</a>
@@ -26,22 +30,25 @@
             <li><a href="tasks.html">Tasks</a></li>
           </ul>
         </li>
+      </ul>
     </div>
-
     <!-- Logo -->
     <p id="logo"><span id="silver-firsthalf">Study</span><span id="red-secondhalf">Hub</span></p>
-
-    <!-- Login button -->
-    <button id="login-button">Login</button>
   </div>
-  <button id="new-task" onclick="document.getElementById('modal-add-task').style.display='block'">Add a new task</button>
-  <div class="modal" id="modal-add-task">
-    <form id="add-task" action="php/add_task.php" method="post">
-      Task Name: <input type="text" name="taskname" />
-      Subject: <input type="text" name="tasksubject" />
-      Due Date: <input type="text" name="duedate" />
-      <input type="submit" />
-    </form>
+  <div id="tasks-wrapper">
+    <div id="tasks-topbar">
+      <!-- Label for the tasks view div -->
+      <div id="tasks-label-wrapper">
+        <p id="tasks-label">Your Tasks</p>
+      </div>
+    </div>
+    <div id="column-header-wrapper">
+      <a class="column-header" id="name-column-header" href="#" onClick="sortTasks('nameorder')">Task Name ⇵</a>
+      <a class="column-header" id="subject-column-header" href="#" onClick="sortTasks('subjectorder')">Subject ⇵</a>
+      <a class="column-header" id="date-column-header" href="#" onClick="sortTasks('dateorder')">Due By ⇵</a>
+    </div>
+    <div class="task">
+    </div>
   </div>
 </body>
 

@@ -1,0 +1,8 @@
+/////////////////////////////////////////////////////
+// Common JavaScript functionality for this project//
+/////////////////////////////////////////////////////
+
+// Small jQuery script for fading in the elements on the homepage
+function pageFade() {
+  // some code here
+}
