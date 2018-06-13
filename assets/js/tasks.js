@@ -67,3 +67,8 @@ function sortTasks(by) {
       break;
   }*/
 }
+
+// Auto removes tasks if their date has expired
+function removePastTasks() {
+  // yeah
+}

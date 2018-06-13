@@ -139,7 +139,7 @@ html, body {
   margin-left: auto;
   margin-right: auto;
   margin-top: 75px;
-  background-color: transparent;
+  background-color: #FFF;
 }
 
 /* Tasks top bar */
@@ -161,7 +161,7 @@ html, body {
   margin-left: 0px;
 }
 
-/* Column header wrapper */
+/* Column header stuff */
 #column-header-wrapper {
   height: 26px;
   width: 100%;
@@ -179,20 +179,21 @@ html, body {
   padding-bottom: 0px;
   padding-left: 0px;
   padding-right: 0px;
+  transition: 0.25s;
 }
 
-#name-column-header {
-  padding-left: 0px;
+.column-header:hover {
+  color:#FF3B3B;
 }
 
-#subject-column-header {
-
+/* And the award for most janky styling solution goes to... me, for using whitespace to space out my text! */
+.whitespace {
+  color: #9A9A9A;
+  text-decoration: none;
 }
 
-#date-column-header {
-
-}
-
+/* Tasks container - created so that I can
 /* Base styling for a task */
 #task {
+
 }
