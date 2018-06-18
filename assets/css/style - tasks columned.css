@@ -9,12 +9,6 @@ html, body {
   font-size: 100%; /* For relative (em scale) font sizes: 1em = 100% = browser default font size */
 }
 
-* {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-     box-sizing: border-box;
-}
-
 /* Manual override for the tasks and timetable background colour */
 .other-body {
   background-color: #2F2F2F;
@@ -142,65 +136,85 @@ html, body {
 #tasks-wrapper {
   height: 100%;
   width: 800px;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 55px;
-  background-color: transparent;
+  margin-top: 75px;
+  background-color: #FFF;
 }
 
-.task {
-  width: 400px;
-  height: 250px;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  float: left;
-  background-color: #505050;
-  text-align: center;
-}
-
-.task-header {
+/* Tasks top bar */
+#tasks-topbar {
+  height: 75px;
+  margin-top: 75px;
   width: 100%;
-  height: auto;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  margin-top: 0px;
-  line-height: 40px;
-  background-color: #FF3B3B;
+  background-color: #6D6D6D;
+  display: block;
+}
+
+/* Tasks box header */
+#tasks-label {
+  font-family: "Nunito", cursive;
+  font-size: 1.875em; /* 1.875em = 1.875x browser default font size */
   text-align: center;
-}
-
-.task-name {
-  font-family: "Nunito", cursive;
-  font-size: 1.25em;
-  font-color: #383838;
-}
-
-.task-subject, .task-date {
-  font-family: "Nunito", cursive;
-  font-size: 1.25em;
   color: #E6E6E6;
+  padding-top: 18px;
+  margin-left: 0px;
 }
 
-.edit-button, .delete-button {
+/* Column header stuff */
+#column-header-wrapper {
+  height: 26px;
+  width: 100%;
+  padding-top: 0px;
+  background-color: #9A9A9A;
+  display: inline-block;
+}
+
+.column-header {
   font-family: "Nunito", cursive;
-  font-size: 1.25em;
+  font-size: 1em;
   text-decoration: none;
-  color: #E6E6E6;
-  transition: 0.25px;
+  color: #FFF;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  transition: 0.25s;
 }
 
+.column-header:hover {
+  color:#FF3B3B;
+}
+
+/* And the award for most janky styling solution goes to... me, for using whitespace to space out my text! */
 .whitespace {
-  color: transparent;
+  color: #9A9A9A;
+  text-decoration: none;
 }
 
-.edit-button:hover, .delete-button:hover {
-  color: #FF3B3B;
+/* Container for the actual tasks themselves */
+.tasks {
+  margin-top: 0px;
+  background-color: #d5d5d5;
+  height: auto;
+  width: 800px;
+}
+
+/* Colour every odd task a different colour */
+.tasks:nth-child(odd) > div {
+  background-color: #afafaf;
+}
+
+/* Base styling for a task */
+.task {
+  padding-top: 0px;
+  height: 75px;
+  width: 800px;
+  display: inline-block;
+}
+
+.task-name, .task-subject, .task-date {
+  font-family: "Nunito", cursive;
+  font-size: 1em;
+  text-decoration: none;
 }
