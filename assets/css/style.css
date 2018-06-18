@@ -152,6 +152,7 @@ html, body {
   background-color: transparent;
 }
 
+/* Base styling for a task 'card' */
 .task {
   width: 400px;
   height: 250px;
@@ -164,6 +165,7 @@ html, body {
   text-align: center;
 }
 
+/* Displaying the name/title of the task above its details */
 .task-header {
   width: 100%;
   height: auto;
@@ -177,6 +179,7 @@ html, body {
   text-align: center;
 }
 
+/* Formatting for the text details */
 .task-name {
   font-family: "Nunito", cursive;
   font-size: 1.25em;
@@ -189,18 +192,20 @@ html, body {
   color: #E6E6E6;
 }
 
+/* Edit and delete buttons */
 .edit-button, .delete-button {
   font-family: "Nunito", cursive;
   font-size: 1.25em;
   text-decoration: none;
   color: #E6E6E6;
-  transition: 0.25px;
-}
-
-.whitespace {
-  color: transparent;
+  transition: 0.25s;
 }
 
 .edit-button:hover, .delete-button:hover {
   color: #FF3B3B;
+  transition: 0.25s;
+}
+
+.whitespace {
+  color: transparent;
 }
