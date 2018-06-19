@@ -1,41 +1,40 @@
-// Tasks-specific JavaScript resources
+// JavaScript for the tasks feature
 
 // Base class for a task object - required, since IndexedDB works on the principle of object stores + argument passing is easier this way
 class Task {
   constructor(name, date, subject) {
-    this.name = name;
-    this.date = date; // This will be a date object
-    this.subject = subject;
+    this.name = name; // String
+    this.date = date; // Date object
+    this.subject = subject; // String
   }
-}
-
-// Retrieve interpreted task objects into an array
-function createTaskArray() {
-    tasks_array = new Array();
 }
 
 // Function for interpreting data in the tasksdata.txt flat file into a visual display
 // Accepted inputs: array of tasks
 function displayTasks(tasks_array) {
-  // some code here
+  // Perhaps this is just going to run the getAll function from IDBPromised?
 }
 
 // Function for creating a new task
 // Argument: a (new) task object
 function createTask(new_task) {
-  // some code here
+  // Open the creation modal
+  // Get data from the forms (this is going to be hard) and create a new task object
+  // Add the formatted object store to the database
 }
 
 // Function for modifying a task's details
 // Argument: a task object
 function editTask(task) {
-  // some code here
+  // Open the editing modal
+  // Change the task object, and somehow push the changes to the object store
+  // Update the db
 }
 
 // Function for deleting a task
 // Argument: a task object
 function deleteTask(task) {
-  // some code here
+  // Delete the object from the tasks database (db)
 }
 
 // Function for checking that the entered date is valid (ie. is not some date in the past or, trivially, the current date)
@@ -70,5 +69,7 @@ function sortTasks(by) {
 
 // Auto removes tasks if their date has expired
 function removePastTasks() {
-  // yeah
+  // Cycle through tasks object store array
+  // Run the checkDateOK function on their date value
+  // If false, delete from the IndexedDB database.
 }

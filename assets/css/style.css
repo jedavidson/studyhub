@@ -47,6 +47,7 @@ html, body {
   float: left;
 }
 
+/* Menu links */
 #menu-wrapper a {
   color: #E6E6E6;
   display: block;
@@ -54,11 +55,12 @@ html, body {
   text-decoration: none;
   font-family: "Nunito", cursive;
   font-size: 1em;
-  transition: 0.25s;
+  transition: 0.125s;
 }
 
+/* Change colour on hover */
 #menu-wrapper a:hover {
-  color: #FF3B3B;
+  color: #ff3b3b;
 }
 
 #menu-wrapper ul, #menu-wrapper ul li {
@@ -117,12 +119,14 @@ html, body {
   margin-left: 75px;
 }
 
+/* Colour the content within this span silver */
 #silver-firsthalf {
   color: #E6E6E6;
 }
 
+/* Colour the content within this span red */
 #red-secondhalf {
-  color: #FF3B3B;
+  color: #ff3b3b;
 }
 
 /* Slogan */
@@ -138,17 +142,65 @@ html, body {
   text-align: center;
 }
 
+/* Tasks control bar */
+#tasks-controls {
+  width: 820px;
+  height: 75px;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-top: 95px;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  background-color: #404040;
+  display: block;
+}
+
+/* Tasks logo styling */
+#tasks-logo {
+  font-family: 'Nunito', cursive;
+  font-size: 1.875em; /* 1.875em = 1.875x browser default font size */
+  position: absolute;
+  float: left;
+  margin-top: 17px;
+  margin-left: 22px;
+}
+
+/* Base styling for the sorting buttons */
+.sort-buttons {
+  width: auto;
+  margin-top: 18px;
+  margin-right: 18px;
+  padding: 8px 8px;
+  border: none;
+  border-radius: 0px;
+  float: right;
+  cursor: pointer;
+  background-color: #ff3b3b;
+  font-family: 'Nunito', cursive;
+  font-size: 1em;
+  color: white;
+  transition: 0.125s;
+}
+
+/* Darken colour on button hover */
+.sort-buttons:hover {
+  background-color: #bf2121;
+}
+
 /* Tasks wrapper */
 #tasks-wrapper {
   height: 100%;
-  width: 800px;
+  width: 820px;
   top: 0px;
   bottom: 0px;
   left: 0px;
   right: 0px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 55px;
+  margin-top: 190px;
   background-color: transparent;
 }
 
@@ -160,22 +212,30 @@ html, body {
   bottom: 0px;
   left: 0px;
   right: 0px;
+  margin-bottom: 20px;
   float: left;
-  background-color: #505050;
+  background-color: #404040;
   text-align: center;
+}
+
+/* Add a space of 20px to the right of all odd task 'cards' */
+.task:nth-child(odd) {
+  margin-right: 20px;
 }
 
 /* Displaying the name/title of the task above its details */
 .task-header {
-  width: 100%;
-  height: auto;
+  width: 360px;
+  height: 40px;
   top: 0px;
   bottom: 0px;
   left: 0px;
   right: 0px;
   margin-top: 0px;
+  margin-left: auto;
+  margin-right: auto;
   line-height: 40px;
-  background-color: #FF3B3B;
+  background-color: #ff3b3b;
   text-align: center;
 }
 
@@ -183,7 +243,7 @@ html, body {
 .task-name {
   font-family: "Nunito", cursive;
   font-size: 1.25em;
-  font-color: #383838;
+  color: #E6E6E6;
 }
 
 .task-subject, .task-date {
@@ -198,14 +258,128 @@ html, body {
   font-size: 1.25em;
   text-decoration: none;
   color: #E6E6E6;
-  transition: 0.25s;
+  transition: 0.125s;
 }
 
 .edit-button:hover, .delete-button:hover {
-  color: #FF3B3B;
-  transition: 0.25s;
+  color: #ff3b3b;
+  transition: 0.125s;
 }
 
+/* Using legitimate CSS to space things is hard, so I have resorted to whitespace */
 .whitespace {
   color: transparent;
+}
+
+/* Add task 'card' */
+#add-task {
+  text-align: center;
+  padding-top: 80px;
+  padding-right: 125px;
+}
+
+/* Modal content divs */
+.modal {
+  display: none; /* By default, this window is hidden */
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0); /* In case the opaque filter doesn't work, fall back to solid black */
+  background-color: rgba(0,0,0,0.9); /* Opaque filter */
+  padding-top: 95px;
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #2b2b2b;
+    margin: 5px auto; /* 15% from the top and centered */
+    border: 1px solid #2b2b2b;
+    width: 600px; /* Could be more or less, depending on screen size */
+}
+
+/* Animation effect for zooming into the modal */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+
+/* Overriding the submission fields to be full length */
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Wrapper for the submission buttons */
+#submission-buttons-wrapper {
+  display: inline-block;
+}
+
+/* Submission buttons */
+.submission-button {
+  width: auto;
+  margin-top: 18px;
+  padding: 8px 8px;
+  border: none;
+  border-radius: 0px;
+  float: right;
+  cursor: pointer;
+  background-color: #ff3b3b;
+  font-family: 'Nunito', cursive;
+  font-size: 1em;
+  color: white;
+  transition: 0.125s;
+}
+
+.submission-button:hover {
+  background-color: #bf2121;
+  transition: 0.125s;
+}
+
+#create-task {
+  background-color: #2e8a37;
+  float: right
+}
+
+#create-task:hover {
+  background-color: #23632a;
+}
+
+#cancel {
+  float: right;
+  margin-right: 20px;
+}
+
+.modal-content-wrapper {
+  padding: 20px;
+  width: 100%;
+}
+
+.modal-label {
+  font-family: 'Nunito', cursive;
+  font-size: 1.25em;
+  color: #E6E6E6;
+}
+
+.modal-input {
+  font-family: 'Nunito', cursive;
+  font-size: 1.25em;
+  color: #1a1a1a;
 }
