@@ -3,21 +3,15 @@
 // Function for interpreting data from the Google spreadsheet into a visual display.
 function displayTasks(tasks_array /* This is an optional argument. */) {
   // If no parameter was passed in, perform a read from the Google spreadsheet.
-  if (existing_array == undefined) {
+  if (tasks_array == undefined) {
     var tasks_from_spreadsheet = new Array;
-    function loadData() {
-      var spreadsheet_url = "https://docs.google.com/spreadsheets/d/1cfVN3E0zE5FY3hnP5ho-TayMBr76UYvytlfcJCSFfDU/edit#gid=0";
-      xmlhttp = new XMLHttpRequest();
-      xml.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4) {
-          alert(xmlhttp.responseText);
-        }
-      };
-      xmlhttp.open("GET", spreadsheet_url, true);
-      xmlhttp.send(null);
-    }
+    // Array should be formatted as such: [{name:"taskname", subject:"tasksubject", date:"taskdate", parsed_date:"xyz"} ... ]
   }
-  
+  // If a parameter was passed in,
+  else {
+
+  }
+
 }
 
 // Function for creating a new task.
@@ -29,21 +23,21 @@ function createTask(new_task) {
 
   // If the task's name and subject are less than 30 characters and it has a valid due date, write the task to the spreadsheet.
   if (dateOK(date) && characterLimitOK(name, subject)) {
-    // write to spreadsheet.
+    // Write to spreadsheet - who knows how we're going to do this though?
+  } else if (!(dateOK(date)) && characterLimitOK(name, subject)) {
+    alert("Invalid date! Please try again.")
+  } else if (dateOK(date) && !(characterLimitOK(name, subject))) {
+    alert("Invalid fields length! Please try again.")
+  } else {
+    alert("Invalid date and fields length! Please try again.")
   }
 }
 
 // Function for checking that the entered date is valid. (ie. is not some date in the past or, trivially, the current date)
 function dateOK(date) {
-  // Get the individual day, month and year from the given date.
-  var target_day = Number(date.slice(0,2));
-  var target_month = Number(date.slice(3,5));
-  var target_year = Number(date.slice(6));
-
-  // Convert this given date into milliseconds since the epoch. (1/1/1970)
-  var target_date_unparsed = new Date(target_year, target_month, target_day);
-  var target_date = Date.parse(target_date_unparsed);
+  // Get the current date and target date as parsed integers reflecting milliseconds since the epoch.
   var current_date = new Date();
+  var target_date = parseDate(date);
 
   // If the date is in the past, then it will be less than the time passed from the epoch until now.
   if (target_date > current_date) {
@@ -53,24 +47,43 @@ function dateOK(date) {
   }
 }
 
+// Function for parsing a given date string into an integer reflecting milliseconds since the epoch.
+function parseDate(date) {
+  // Get the individual day, month and year string slices from the given date.
+  var date_day = Number(date.slice(0,2));
+  var date_month = Number(date.slice(3,5));
+  var date_year = Number(date.slice(6));
+
+  // Convert this given date into milliseconds since the epoch.
+  var date_unparsed = new Date(target_year, target_month, target_day);
+  var date = Date.parse(target_date_unparsed);
+  return date;
+}
+
 // Function for checking if the length of strings is under the character limit of 30.
 function characterLimitOK(target_name, target_subject) {
-    if (target_name.length =< 30 && target_subject.length =< 30) {
-      return true;
-    }
+  if (target_name.length =< 30 && target_subject.length =< 30) {
+    return true;
+  }
 }
 
 // Function for sorting tasks by name order (alphabetic), subject order (also alphabetic) or date order (closest dates to the current day)
 function sortTasks(sort_method, tasks_array) {
   switch (sort_method) {
     case 'nameorder':
-      // Do an alphabetical sort.
+      // Sort the array alphabetically in terms of the task names.
+      sorted_array = tasks_array.sort(function(a, b) { return a.name > b.name ? 1 : -1; });
+      tasks_array = sorted_array;
       break;
     case 'subjectorder':
-      // Do an alphabetical sort.
+      // Sort the array alphabetically in terms of the task subjects.
+      sorted_array = tasks_array.sort(function(a, b) { return a.subject > b.subject ? 1 : -1; });
+      tasks_array = sorted_array;
       break;
     case 'dateorder':
-      // Do a value sort.
+      // Sort the array alphabetically in terms of the task subjects.
+      sorted_array = tasks_array.sort(function(a, b) { return a.parsed_date > b.parsed_date ? 1 : -1; });
+      tasks_array = sorted_array;
       break;
   }
 
