@@ -252,23 +252,29 @@ html, body {
   color: #E6E6E6;
 }
 
-/* Edit and delete buttons */
-.edit-button, .delete-button {
-  font-family: "Nunito", cursive;
-  font-size: 1.25em;
-  text-decoration: none;
-  color: #E6E6E6;
-  transition: 0.125s;
+/* Task options div */
+.task-options {
+  width: 360px;
+  height: auto;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #000000;
+  text-align: center;
+  display: block;
 }
 
-.edit-button:hover, .delete-button:hover {
-  color: #ff3b3b;
-  transition: 0.125s;
+#edit-button {
+  margin-left: 100px;
+  float: left;
 }
 
-/* Using legitimate CSS to space things is hard, so I have resorted to whitespace */
-.whitespace {
-  color: transparent;
+#delete-button {
+  float: left;
 }
 
 /* Add task 'card' */
@@ -353,6 +359,7 @@ input[type=text] {
   transition: 0.125s;
 }
 
+/* Button for triggering the task creation modal */
 #create-task {
   background-color: #2e8a37;
   float: right
@@ -367,6 +374,7 @@ input[type=text] {
   margin-right: 20px;
 }
 
+/* Styling the modal window itself */
 .modal-content-wrapper {
   padding: 20px;
   width: 100%;

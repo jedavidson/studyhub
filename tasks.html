@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
   <link rel="shortcut icon" href="assets/img/favicon-tasks.ico">
   <script src="assets/js/jquery-3.3.1.min.js"></script>
-  <script src="assets/js/tasks.js"></script>
+  <!-- Remove comments when done: <script async src="assets/js/tasks.js"></script> -->
 </head>
 
 <body class="other-body">
@@ -29,6 +29,7 @@
         </li>
       </ul>
     </div>
+
     <!-- Logo -->
     <p id="logo"><span id="silver-firsthalf">Study</span><span id="red-secondhalf">Hub</span></p>
   </div>
@@ -43,49 +44,23 @@
 
   <!-- Wrapper for the task display portion of the site -->
   <div id="tasks-wrapper">
-    <!-- In real-time, this section would contain the task 'cards' (a 400x250 div displaying a task's information),
-         but this is obviously variable depending on how many tasks are to be generated (if any) -->
+    <!-- In real-time, this section would contain the task 'cards'. (a 400x250 div displaying the task's information)
+         This is obviously variable depending on how many tasks are to be generated. (if any) -->
     <div class="task" id="task1">
       <div class="task-header">
         <p class="task-name">Test task 1</p>
       </div>
       <p class="task-subject">Test subject 2</p>
-      <p class="task-date">Due DD/MM/YYYY</p> <!-- fetch data at a later date.. ? -->
-      <br />
-      <a class="edit-button" href="#" title="Edit Task">✐</a><a class="whitespace">-----</a><a class="delete-button" href="#" title="Delete Task">✖</a>
-    </div>
-
-    <div class="task" id="task2">
-      <div class="task-header">
-        <p class="task-name">Test task 2</p>
+      <p class="task-date">Due DD/MM/YYYY</p>
+      <div class="task-options">
+        <button class="sort-buttons" id="edit-button" onClick="editTask()">Edit ✐</a>
+        <button class="sort-buttons" id="delete-button" onClick="deleteTask()">Delete ✖</a>
       </div>
-      <p class="task-subject">Test subject 2</p>
-      <p class="task-date">Due DD/MM/YYYY</p> <!-- fetch data at a later date.. ? -->
-      </br/>
-      <a class="edit-button" href="#" title="Edit Task">✐</a><a class="whitespace">-----</a><a class="delete-button" href="#" title="Delete Task">✖</a>
-    </div>
-
-    <div class="task" id="task3">
-      <div class="task-header">
-        <p class="task-name">Test task 3</p>
-      </div>
-      <p class="task-subject">Test subject 3</p>
-      <p class="task-date">Due DD/MM/YYYY</p> <!-- fetch data at a later date.. ? -->
-      <a class="edit-button" href="#" title="Edit Task">✐</a><a class="whitespace">-----</a><a class="delete-button" href="#" title="Delete Task">✖</a>
-    </div>
-
-    <div class="task" id="task4">
-      <div class="task-header">
-        <p class="task-name">Test task 4</p>
-      </div>
-      <p class="task-subject">Test subject 4</p>
-      <p class="task-date">Due DD/MM/YYYY</p> <!-- fetch data at a later date.. ? -->
-      <a class="edit-button" href="#" title="Edit Task">✐</a><a class="whitespace">-----</a><a class="delete-button" href="#" title="Delete Task">✖</a>
     </div>
 
     <!-- New task 'card' that is displayed after all existing tasks have been displayed -->
     <div class="task" id="add-task">
-      <button class="sort-buttons" onClick="document.getElementById('new-task-modal').style.display='block'">Add new task</button>
+      <button class="sort-buttons" onClick="document.getElementById('new-task-modal').style.display='block'">Add new task +</button>
     </div>
 
     <!-- Modal window triggered by clicking the new task button -->
@@ -93,15 +68,15 @@
       <form class="modal-content animate" id="new-task-form">
         <div class="modal-content-wrapper" id="submission-fields">
           <label class="modal-label" for="taskname">The name of this task is:</label>
-          <input class="modal-input" type="text" placeholder="e.g. Prepare speech" name="taskname" required/>
+          <input class="modal-input" type="text" placeholder="e.g. Prepare speech (max. 30 characters)" name="taskname" required/>
           <label class="modal-label" for="tasksubject">This task is for the subject:</label>
-          <input class="modal-input" type="text" placeholder="e.g. English" name="tasksubject" required/>
+          <input class="modal-input" type="text" placeholder="e.g. English (max. 30 characters)" name="tasksubject" required/>
           <label class="modal-label" for="taskdate">This task is due:</label>
           <input class="modal-input" type="text" placeholder="DD/MM/YYYY" name="taskdate" required/>
         </div>
 
         <div class="modal-content-wrapper" id="submission-buttons-wrapper">
-          <button class="submission-button" id="create-task" type="submit">Create task ✔</button>
+          <button class="submission-button" id="create-task" onClick="createTask(getTasksFromStorage())">Create task ✔</button>
           <button class="submission-button" id="cancel" onClick="document.getElementById('new-task-modal').style.display='none'">Cancel ✖</button>
         </div>
       </form>
