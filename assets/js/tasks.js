@@ -1,27 +1,49 @@
 // JavaScript for the tasks feature.
 
+// Declare the identifier for the tasks array as a global.
+var tasks;
+
+// Function to be run as soon as the page is loaded.
+function initScript() {
+  // Retrieve tasks from the browser's storage
+  tasks = getTasksFromStorage();
+
+  // Check the loaded tasks for any that may be out of date and delete them, before they are loaded.
+  removePastTasks(tasks);
+
+  // Render the tasks on the page.
+  displayTasks(tasks);
+}
+
 // Function for getting the tasks from the browser's storage.
 function getTasksFromStorage() {
-  var tasks = new Array;
+  var tasks_array = new Array;
   // Loop through the browser data store.
   for (var i = 0; i < localStorage.length; i++) {
     var key_name = localStorage.key(i);
     // If the object's key is a task (ie. starts with the characters 'task'), deserialize it and add it to the tasks array.
     if (key_name.slice(0,4) == 'task') {
       var deserialized_obj = JSON.parse(localStorage.getItem(key_name));
-      tasks.push(converted_obj);
+      tasks_array.push(deserialized_obj);
     }
   }
-  return tasks;
+  return tasks_array;
 }
 
 // Remove tasks if their date has expired.
 function removePastTasks(tasks_array) {
-  for (i = 0; i < tasks_array.length; i++;) {
+  // Flag for determining if any tasks were deleted.
+  var changed = false;
+  for (i = 0; i < tasks_array.length; i++) {
     if (!(dateOK(tasks_array[i].date))) {
       // Remove the task from the browser's storage.
       localStorage.removeItem(tasks_array[i].name);
+      changed = true;
     }
+  }
+  // If any tasks were deleted, reload the page.
+  if (changed == true) {
+    location.reload();
   }
 }
 
@@ -32,7 +54,7 @@ function displayTasks(tasks_array) {
     // For simplicity, define all of the element IDs that will be assigned/referenced here.
     var task_id = 'task' + String(i + 1);
     var task_header_id = 'task-header' + String(i + 1);
-    var task_name_id = 'task-header' + String(i + 1);
+    var task_name_id = 'task-name' + String(i + 1);
     var task_subject_id = 'task-subject' + String(i + 1);
     var task_date_id = 'task-date' + String(i + 1);
     var task_options_id = 'task-options' + String(i + 1);
@@ -55,22 +77,23 @@ function displayTasks(tasks_array) {
     var task_name = document.createElement('p');
     task_name.id = task_name_id;
     task_name.className = 'task-name';
-    document.getElementById(task_name_id).innerHTML = tasks_array[i].name;
     document.getElementById(task_header_id).appendChild(task_name);
+    document.getElementById(task_name_id).innerHTML = tasks_array[i].name;
 
     // Task subject paragraph.
     var task_subject = document.createElement('p');
+    console.log(task_subject_id);
     task_subject.id = task_subject_id;
     task_subject.className = 'task-subject';
-    document.getElementById(task_subject_id).innerHTML = 'For', tasks_array[i].subject;
     document.getElementById(task_id).appendChild(task_subject);
+    document.getElementById(task_subject_id).innerHTML = 'For ' + tasks_array[i].subject;
 
     // Task date paragraph.
     var task_date = document.createElement('p');
-    task_subject.id = task_date_id ;
+    task_subject.id = task_date_id;
     task_subject.className = 'task-date';
-    document.getElementById(task_date_id).innerHTML = 'Due', tasks_array[i].date;
     document.getElementById(task_id).appendChild(task_date);
+    document.getElementById(task_date_id).innerHTML = 'Due ' + tasks_array[i].date;
 
     // Task options div.
     var task_options = document.createElement('div');
@@ -83,27 +106,15 @@ function displayTasks(tasks_array) {
     var delete_button = document.createElement('button');
     edit_button.id = edit_button_id;
     delete_button.id = delete_button_id;
-    edit_button.className = 'sort-buttons';
-    delete_button.className = 'sort-buttons';
-    document.getElementById(edit_button_id).onclick = function () { editTask() };
-    document.getElementById(delete_button_id).onclick = function () { deleteTask() };
+    edit_button.className = 'edit-buttons';
+    delete_button.className = 'delete-buttons';
     document.getElementById(task_options_id).appendChild(edit_button);
     document.getElementById(task_options_id).appendChild(delete_button);
+    document.getElementById(edit_button_id).onclick = function () { editTask() };
+    document.getElementById(edit_button_id).innerHTML = 'Edit ✐';
+    document.getElementById(delete_button_id).onclick = function () { deleteTask() };
+    document.getElementById(delete_button_id).innerHTML = 'Delete ✖';
   }
-
-  // Add task div.
-  var add_task = document.createElement('div');
-  add_task.id = 'add-task-id';
-  add_task.className = 'task';
-  document.getElementById('tasks-wrapper').appendChild(add_task);
-
-  // Add task button.
-  var add_task_button document.createElement('button');
-  add_task.id = 'add-task-button';
-  add_task.className = 'sort-buttons';
-  document.getElementById('add-task-button').onclick = function () { document.getElementById('new-task-modal').style.display='block' };
-  document.getElementById('add-task-button').innerHTML = 'Add new task';
-  document.getElementById('add-task-id').appendChild(add_task);
 }
 
 // Function for parsing a given date string into an integer reflecting milliseconds since the epoch.
@@ -114,8 +125,8 @@ function parseDate(date) {
   var date_year = Number(date.slice(6));
 
   // Convert this given date into milliseconds since the epoch.
-  var date_unparsed = new Date(target_year, target_month, target_day);
-  var date = Date.parse(target_date_unparsed);
+  var date_unparsed = new Date(date_year, date_month, date_day);
+  var date = Date.parse(date_unparsed);
 
   return date;
 }
@@ -136,7 +147,7 @@ function dateOK(date) {
 
 // Function for checking if the length of strings is under the character limit of 30.
 function characterLimitOK(target_name, target_subject) {
-  if (target_name.length =< 30 && target_subject.length =< 30) {
+  if ((target_name.length <= 30) && (target_subject.length <= 30)) {
     return true;
   } else {
     return false;
@@ -144,6 +155,7 @@ function characterLimitOK(target_name, target_subject) {
 }
 
 // Function for sorting tasks by name order (alphabetic), subject order (also alphabetic) or date order (closest dates to the current day).
+// TODO: Figure out how to update the task order in real time without refreshing the page. (which will nullify this code)
 function sortTasks(sort_method, tasks_array) {
   switch (sort_method) {
     case 'nameorder':
@@ -162,10 +174,6 @@ function sortTasks(sort_method, tasks_array) {
       tasks_array = sorted_array;
       break;
   }
-
-  //  Display the newly sorted data, and reload the page.
-  displayTasks(tasks_array);
-  location.reload();
 }
 
 // Function for creating a new task.
@@ -181,12 +189,15 @@ function createTask(tasks_array) {
     new_task = {
       name: desired_name,
       subject: desired_subject,
-      date: desired_date;
+      date: desired_date
     };
 
     // Serialize the object, then write it to the browser's storage.
     task_key = 'task' + String(tasks_array.length);
     localStorage.setItem(task_key, JSON.stringify(new_task));
+
+    // Reload the page.
+    location.reload();
 
   } else if (!(dateOK(desired_date)) && characterLimitOK(desired_name, desired_subject)) {
     alert("Invalid date! Please try again.")
@@ -199,14 +210,13 @@ function createTask(tasks_array) {
 
 // Function for modifying a task's details
 function editTask(task) {
-  // TODO.
+  // TODO: Create editing modal and then write this function.
 }
 
-// Function for deleting a task
+// Function for deleting a task.
 function deleteTask(task_key) {
-  localStorage.removeItem()
+  localStorage.removeItem(task_key);
+  location.reload();
 }
 
-getTasksFromStorage();
-removePastTasks();
-displayTasks();
+initScript();

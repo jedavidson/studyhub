@@ -268,13 +268,41 @@ html, body {
   display: block;
 }
 
-#edit-button {
+.edit-buttons {
+  width: auto;
+  margin-top: 18px;
   margin-left: 100px;
+  margin-right: 18px;
+  padding: 8px 8px;
+  border: none;
+  border-radius: 0px;
   float: left;
+  cursor: pointer;
+  background-color: #ff3b3b;
+  font-family: 'Nunito', cursive;
+  font-size: 1em;
+  color: white;
+  transition: 0.125s;
 }
 
-#delete-button {
+.delete-buttons {
+  width: auto;
+  margin-top: 18px;
+  margin-right: 18px;
+  padding: 8px 8px;
+  border: none;
+  border-radius: 0px;
   float: left;
+  cursor: pointer;
+  background-color: #ff3b3b;
+  font-family: 'Nunito', cursive;
+  font-size: 1em;
+  color: white;
+  transition: 0.125s;
+}
+
+.edit-buttons:hover, .delete-buttons:hover {
+  background-color: #bf2121;
 }
 
 /* Add task 'card' */

@@ -9,8 +9,6 @@
   <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
   <link rel="shortcut icon" href="assets/img/favicon-tasks.ico">
-  <script src="assets/js/jquery-3.3.1.min.js"></script>
-  <!-- Remove comments when done: <script async src="assets/js/tasks.js"></script> -->
 </head>
 
 <body class="other-body">
@@ -37,35 +35,20 @@
   <!-- The tasks topbar, including logo and sorting controls -->
   <div id="tasks-controls">
     <p id="tasks-logo"><span id="silver-firsthalf">Your Tasks</span></p>
-    <button class="sort-buttons">Sort by date</button>
-    <button class="sort-buttons">Sort by subject</button>
-    <button class="sort-buttons">Sort by name</button>
+    <button class="sort-buttons" onClick="sortTasks('dateorder', tasks)">Sort by date</button>
+    <button class="sort-buttons" onClick="sortTasks('subjectorder', tasks)">Sort by subject</button>
+    <button class="sort-buttons" onClick="sortTasks('nameorder', tasks)">Sort by name</button>
+    <button class="sort-buttons" onClick="document.getElementById('new-task-modal').style.display='block'">Add new task</button>
   </div>
 
-  <!-- Wrapper for the task display portion of the site -->
+  <!-- Wrapper for the task display portion of the site.
+
+  In real-time, this section would contain the task 'cards'. (a 400x250 div displaying the task's information)
+  This is obviously variable depending on how many tasks are to be generated. -->
   <div id="tasks-wrapper">
-    <!-- In real-time, this section would contain the task 'cards'. (a 400x250 div displaying the task's information)
-         This is obviously variable depending on how many tasks are to be generated. (if any) -->
-    <div class="task" id="task1">
-      <div class="task-header">
-        <p class="task-name">Test task 1</p>
-      </div>
-      <p class="task-subject">Test subject 2</p>
-      <p class="task-date">Due DD/MM/YYYY</p>
-      <div class="task-options">
-        <button class="sort-buttons" id="edit-button" onClick="editTask()">Edit ✐</a>
-        <button class="sort-buttons" id="delete-button" onClick="deleteTask()">Delete ✖</a>
-      </div>
-    </div>
-
-    <!-- New task 'card' that is displayed after all existing tasks have been displayed -->
-    <div class="task" id="add-task">
-      <button class="sort-buttons" onClick="document.getElementById('new-task-modal').style.display='block'">Add new task +</button>
-    </div>
-
     <!-- Modal window triggered by clicking the new task button -->
     <div id="new-task-modal" class="modal">
-      <form class="modal-content animate" id="new-task-form">
+      <form class="modal-content animate" id="new-task-form" novalidate>
         <div class="modal-content-wrapper" id="submission-fields">
           <label class="modal-label" for="taskname">The name of this task is:</label>
           <input class="modal-input" type="text" placeholder="e.g. Prepare speech (max. 30 characters)" name="taskname" required/>
@@ -82,6 +65,7 @@
       </form>
     </div>
   </div>
+  <script src="assets/js/tasks.js"></script>
 </body>
 
 </html>

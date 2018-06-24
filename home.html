@@ -9,14 +9,18 @@
   <link rel="shortcut icon" href="assets/img/favicon-home.ico">
   <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script async src="assets/js/home.js"></script>
+  <script type="text/javascript">
+    // Check if the browser supports localStorage. (most do, but it's a fairly painless check)
+    if (typeof(Storage) == undefined) {
+      alert("Your browser does not support localStorage, so you won't be able to use this website's features.");
+    }
+  </script>
 </head>
 
 <body background="assets/img/home-background.png">
-  <!-- wrapper for the top bar -->
+  <!-- wrapper for the top bar. -->
   <div class="topbar drop-shadow">
-    <!-- Menu -->
+    <!-- Menu. -->
     <div id="menu-wrapper">
       <ul>
         <li class="sub-menu-parent" tab-index="0">
@@ -29,14 +33,14 @@
         </li>
     </div>
 
-    <!-- Logo -->
+    <!-- Logo. -->
     <p id="logo"><span id="silver-firsthalf">Study</span><span id="red-secondhalf">Hub</span></p>
   </div>
 
-  <!-- Website slogan -->
+  <!-- Website slogan. -->
   <p id="slogan"><span id="silver-firsthalf">All of your study needs. </span><span id="red-secondhalf">All in one place.</span></p>
 
-  <!-- wrapper for the timetable and tasks big buttons -->
+  <!-- Wrapper for the timetable and tasks big buttons. -->
   <div id="big-buttons">
     <a href="timetable.html"><img hspace="75" src="assets/img/timetable-big-sized.png"/></a>
     <a href="tasks.html"><img hspace="75" src="assets/img/tasks-big-sized.png"/></a>
