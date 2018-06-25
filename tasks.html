@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
   <link rel="shortcut icon" href="assets/img/favicon-tasks.ico">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body class="other-body">
@@ -35,10 +36,10 @@
   <!-- The tasks topbar, including logo and sorting controls -->
   <div id="tasks-controls">
     <p id="tasks-logo"><span id="silver-firsthalf">Your Tasks</span></p>
-    <button class="sort-buttons" onClick="sortTasks('dateorder', tasks)">Sort by date</button>
-    <button class="sort-buttons" onClick="sortTasks('subjectorder', tasks)">Sort by subject</button>
-    <button class="sort-buttons" onClick="sortTasks('nameorder', tasks)">Sort by name</button>
-    <button class="sort-buttons" onClick="document.getElementById('new-task-modal').style.display='block'">Add new task</button>
+    <button class="sort-buttons" onclick="sortTasks('dateorder', tasks)">Sort by date</button>
+    <button class="sort-buttons" onclick="sortTasks('subjectorder', tasks)">Sort by subject</button>
+    <button class="sort-buttons" onclick="sortTasks('nameorder', tasks)">Sort by name</button>
+    <button class="sort-buttons" onclick="createTask()">Add new task</button>
   </div>
 
   <!-- Wrapper for the task display portion of the site.
@@ -48,7 +49,7 @@
   <div id="tasks-wrapper">
     <!-- Modal window triggered by clicking the new task button -->
     <div id="new-task-modal" class="modal">
-      <form class="modal-content animate" id="new-task-form" novalidate>
+      <form class="modal-content animate" id="new-task-form" onsubmit="createTask(tasks)">
         <div class="modal-content-wrapper" id="submission-fields">
           <label class="modal-label" for="taskname">The name of this task is:</label>
           <input class="modal-input" type="text" placeholder="e.g. Prepare speech (max. 30 characters)" name="taskname" required/>
@@ -56,12 +57,12 @@
           <input class="modal-input" type="text" placeholder="e.g. English (max. 30 characters)" name="tasksubject" required/>
           <label class="modal-label" for="taskdate">This task is due:</label>
           <input class="modal-input" type="text" placeholder="DD/MM/YYYY" name="taskdate" required/>
+          <button class="submission-button" id="create-task" type="submit">Create task ✔</button>
+          <button class="submission-button" id="cancel" onclick="document.getElementById('new-task-modal').style.display='none'">Cancel ✖</button>
         </div>
 
-        <div class="modal-content-wrapper" id="submission-buttons-wrapper">
-          <button class="submission-button" id="create-task" onClick="createTask(getTasksFromStorage())">Create task ✔</button>
-          <button class="submission-button" id="cancel" onClick="document.getElementById('new-task-modal').style.display='none'">Cancel ✖</button>
-        </div>
+        <!--<div class="modal-content-wrapper" id="submission-buttons-wrapper">
+        </div>-->
       </form>
     </div>
   </div>

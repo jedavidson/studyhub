@@ -217,11 +217,11 @@ html, body {
   background-color: #404040;
   text-align: center;
 }
-
-/* Add a space of 20px to the right of all odd task 'cards' */
+/*
+Add a space of 20px to the right of all odd task 'cards'
 .task:nth-child(odd) {
   margin-right: 20px;
-}
+}*/
 
 /* Displaying the name/title of the task above its details */
 .task-header {
@@ -333,6 +333,7 @@ html, body {
     margin: 5px auto; /* 15% from the top and centered */
     border: 1px solid #2b2b2b;
     width: 600px; /* Could be more or less, depending on screen size */
+    height: 390px;
 }
 
 /* Animation effect for zooming into the modal */
