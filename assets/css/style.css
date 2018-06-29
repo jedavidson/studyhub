@@ -217,11 +217,6 @@ html, body {
   background-color: #404040;
   text-align: center;
 }
-/*
-Add a space of 20px to the right of all odd task 'cards'
-.task:nth-child(odd) {
-  margin-right: 20px;
-}*/
 
 /* Displaying the name/title of the task above its details */
 .task-header {
@@ -362,11 +357,6 @@ input[type=text] {
   box-sizing: border-box;
 }
 
-/* Wrapper for the submission buttons */
-#submission-buttons-wrapper {
-  display: inline-block;
-}
-
 /* Submission buttons */
 .submission-button {
   width: auto;
@@ -389,21 +379,21 @@ input[type=text] {
 }
 
 /* Button for triggering the task creation modal */
-#create-task {
+#create-task, #edit-task {
   background-color: #2e8a37;
   float: right
 }
 
-#create-task:hover {
+#create-task:hover, #edit-task:hover {
   background-color: #23632a;
 }
 
-#cancel {
+#new-task-cancel, #edit-cancel {
   float: right;
   margin-right: 20px;
 }
 
-/* Styling the modal window itself */
+/* Styling the modal windows themselves */
 .modal-content-wrapper {
   padding: 20px;
   width: 100%;

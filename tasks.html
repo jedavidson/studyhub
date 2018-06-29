@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,9 +12,9 @@
 </head>
 
 <body class="other-body">
-  <!-- The top bar -->
+  <!-- The top bar. -->
   <div class="topbar">
-    <!-- Menu -->
+    <!-- The menu. -->
     <div id="menu-wrapper">
       <ul>
         <li class="sub-menu-parent" tab-index="0">
@@ -29,43 +28,55 @@
       </ul>
     </div>
 
-    <!-- Logo -->
+    <!-- The logo. -->
     <p id="logo"><span id="silver-firsthalf">Study</span><span id="red-secondhalf">Hub</span></p>
   </div>
 
-  <!-- The tasks topbar, including logo and sorting controls -->
+  <!-- The tasks topbar, including logo and sorting controls. -->
   <div id="tasks-controls">
     <p id="tasks-logo"><span id="silver-firsthalf">Your Tasks</span></p>
     <button class="sort-buttons" onclick="sortTasks('dateorder', tasks)">Sort by date</button>
     <button class="sort-buttons" onclick="sortTasks('subjectorder', tasks)">Sort by subject</button>
     <button class="sort-buttons" onclick="sortTasks('nameorder', tasks)">Sort by name</button>
-    <button class="sort-buttons" onclick="createTask()">Add new task</button>
+    <button class="sort-buttons" onclick="document.getElementById('new-task-modal').style.display = 'block'">Add new task</button>
   </div>
 
   <!-- Wrapper for the task display portion of the site.
-
   In real-time, this section would contain the task 'cards'. (a 400x250 div displaying the task's information)
   This is obviously variable depending on how many tasks are to be generated. -->
   <div id="tasks-wrapper">
     <!-- Modal window triggered by clicking the new task button -->
     <div id="new-task-modal" class="modal">
-      <form class="modal-content animate" id="new-task-form" onsubmit="createTask(tasks)">
-        <div class="modal-content-wrapper" id="submission-fields">
+      <div class="modal-content animate" id="new-task-form"">
+        <div class="modal-content-wrapper" id="new-task-submission-fields">
           <label class="modal-label" for="taskname">The name of this task is:</label>
-          <input class="modal-input" type="text" placeholder="e.g. Prepare speech (max. 30 characters)" name="taskname" required/>
+          <input id="task-name" class="modal-input" type="text" placeholder="e.g. Prepare speech (max. 30 characters)" name="taskname" required/>
           <label class="modal-label" for="tasksubject">This task is for the subject:</label>
-          <input class="modal-input" type="text" placeholder="e.g. English (max. 30 characters)" name="tasksubject" required/>
+          <input id="task-subject" class="modal-input" type="text" placeholder="e.g. English (max. 30 characters)" name="tasksubject" required/>
           <label class="modal-label" for="taskdate">This task is due:</label>
-          <input class="modal-input" type="text" placeholder="DD/MM/YYYY" name="taskdate" required/>
-          <button class="submission-button" id="create-task" type="submit">Create task ✔</button>
-          <button class="submission-button" id="cancel" onclick="document.getElementById('new-task-modal').style.display='none'">Cancel ✖</button>
+          <input id="task-date" class="modal-input" type="text" placeholder="DD/MM/YYYY" name="taskdate" required/>
+          <button class="submission-button" id="create-task" onclick="createTask(tasks)">Create task ✔</button>
+          <button class="submission-button" id="new-task-cancel" onclick="document.getElementById('new-task-modal').style.display='none'">Cancel ✖</button>
         </div>
-
-        <!--<div class="modal-content-wrapper" id="submission-buttons-wrapper">
-        </div>-->
-      </form>
+      </div>
+    </div>
+    <div id="edit-task-modal" class="modal">
+      <div class="modal-content animate" id="edit-task-form">
+        <div class="modal-content-wrapper" id="edit-task-submission-fields">
+          <label class="modal-label" for="edittaskname">Change the task name to:</label>
+          <input id="edit-name" class="modal-input" type="text" placeholder="e.g. Prepare speech (max. 30 characters)" name="edittaskname" required/>
+          <label class="modal-label" for="tasksubject">Change the task subject to:</label>
+          <input id="edit-subject" class="modal-input" type="text" placeholder="e.g. English (max. 30 characters)" name="edittasksubject" required/>
+          <label class="modal-label" for="taskdate">Change the task date to:</label>
+          <input id="edit-date" class="modal-input" type="text" placeholder="DD/MM/YYYY" name="edittaskdate" required/>
+          <button class="submission-button" id="edit-task" type="submit">Edit task ✐</button>
+          <button class="submission-button" id="edit-cancel" onclick="document.getElementById('edit-task-modal').style.display='none'">Cancel ✖</button>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- Run the script that makes this program a thing. -->
   <script src="assets/js/tasks.js"></script>
 </body>
 

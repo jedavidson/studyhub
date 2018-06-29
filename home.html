@@ -10,17 +10,17 @@
   <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
   <script type="text/javascript">
-    // Check if the browser supports localStorage. (most do, but it's a fairly painless check)
+    // Check if the browser supports localStorage and/or sessionStorage. (most do, but it's a fairly painless check)
     if (typeof(Storage) == undefined) {
-      alert("Your browser does not support localStorage, so you won't be able to use this website's features.");
+      alert("Your browser does not support localStorage/sessionStorage, so you won't be able to use this website's features.");
     }
   </script>
 </head>
 
 <body background="assets/img/home-background.png">
-  <!-- wrapper for the top bar. -->
+  <!-- Wrapper for the top bar. -->
   <div class="topbar drop-shadow">
-    <!-- Menu. -->
+    <!-- The menu. -->
     <div id="menu-wrapper">
       <ul>
         <li class="sub-menu-parent" tab-index="0">
@@ -33,7 +33,7 @@
         </li>
     </div>
 
-    <!-- Logo. -->
+    <!-- The logo. -->
     <p id="logo"><span id="silver-firsthalf">Study</span><span id="red-secondhalf">Hub</span></p>
   </div>
 

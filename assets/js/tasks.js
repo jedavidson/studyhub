@@ -43,21 +43,32 @@ function getTasksFromStorage() {
 function removePastTasks(tasks_array) {
   // Flag for determining if any tasks were deleted.
   var changed = false;
+
+  // Loop through all of the tasks currently stored in the array.
   for (i = 0; i < tasks_array.length; i++) {
     if (!(dateOK(tasks_array[i].date))) {
       // Remove the task from the browser's storage.
-      localStorage.removeItem(tasks_array[i].name);
+      localStorage.removeItem('task' + String(i + 1));
       changed = true;
     }
   }
-  /* If any tasks were deleted, reload the page.
+
+  // If any tasks were deleted, reload the page.
   if (changed == true) {
-    //location.reload();
-  }*/
+    location.reload();
+  }
 }
 
 // Function for interpreting raw task data into a visual display on the tasks page.
 function displayTasks(tasks_array) {
+  // If a sorted array exists in session storage, override the tasks array with the sorted array.
+  if (sessionStorage.key(0) == 'tasks-sorted') {
+    // Parse the stored array and override the passed in tasks array.
+    tasks_array = JSON.parse(sessionStorage.getItem(sessionStorage.key(0)));
+    // Remove the array from sessionStorage after the override is complete.
+    sessionStorage.removeItem(sessionStorage.key(0));
+  }
+
   // Generate the HTML elements for each task object in the array.
   for (var i = 0; i < tasks_array.length; i++) {
     // For simplicity, define all of the element IDs that will be assigned/referenced here.
@@ -75,7 +86,8 @@ function displayTasks(tasks_array) {
     task_div.id = task_id;
     task_div.className = 'task';
     document.getElementById('tasks-wrapper').appendChild(task_div);
-    // If the task number is odd (ie. i + 1 is odd => i is even) add a 20px spacing between the element.
+
+    // If the task number is odd (ie. i + 1 is odd <=> i is even) add a 20px spacing to the right of this div.
     if (i % 2 == 0) {
       document.getElementById(task_id).style.marginRight = '20px';
     }
@@ -137,7 +149,7 @@ function parseDate(date) {
   var date_year = Number(date.slice(6));
 
   // Convert this given date into milliseconds since the epoch.
-  var date_unparsed = new Date(date_year, date_month, date_day);
+  var date_unparsed = new Date(date_year, date_month - 1, date_day);
   var date = Date.parse(date_unparsed);
 
   return date;
@@ -167,7 +179,6 @@ function characterLimitOK(target_name, target_subject) {
 }
 
 // Function for sorting tasks by name order (alphabetic), subject order (also alphabetic) or date order (closest dates to the current day).
-// TODO: Figure out how to update the task order in real time without refreshing the page. (which will nullify this code)
 function sortTasks(sort_method, tasks_array) {
   switch (sort_method) {
     case 'nameorder':
@@ -186,18 +197,21 @@ function sortTasks(sort_method, tasks_array) {
       tasks_array = sorted_array;
       break;
   }
+
+  // Store the sorted array in session storage, and reload the page.
+  sessionStorage.setItem('tasks-sorted', JSON.stringify(tasks_array));
+  location.reload();
 }
 
 // Function for creating a new task.
 function createTask(tasks_array) {
-  // Unhide the new task modal.
-  document.getElementById('new-task-modal').style.display='block';
-
   // Get the data from the HTML form.
-  $()
+  desired_name = document.getElementById('task-name').value;
+  desired_subject = document.getElementById('task-subject').value;
+  desired_date = document.getElementById('task-date').value;
 
   // If the task's name and subject are less than 30 characters and it has a valid due date, write the task to the browser's storage.
-  if (dateOK(date) && characterLimitOK(name, subject)) {
+  if (dateOK(desired_date) && characterLimitOK(desired_name, desired_subject)) {
     // Create a new task object.
     new_task = new Task(desired_name, desired_subject, desired_date);
 
@@ -209,23 +223,31 @@ function createTask(tasks_array) {
     //location.reload();
 
   } else if (!(dateOK(desired_date)) && characterLimitOK(desired_name, desired_subject)) {
-    alert("Invalid date! Please try again.")
+    alert("Invalid date! Please try again.");
   } else if (dateOK(desired_date) && !(characterLimitOK(desired_name, desired_subject))) {
-    alert("Invalid fields length! Please try again.")
+    alert("Invalid fields length! Please try again.");
   } else {
-    alert("Invalid date and fields length! Please try again.")
+    alert("Invalid date and fields length! Please try again.");
   }
 }
 
 // Function for modifying a task's details
-function editTask(task) {
-  // TODO: Create editing modal and then write this function.
+function editTask() {
+  // Unhide the edit modal.
+  document.getElementById('edit-task-modal').style.display = 'block';
+
+  // Get stuff.
 }
 
 // Function for deleting a task.
 function deleteTask(task_key) {
+  // Prompt the user to confirm that they did indeed want to delete the task.
+  alert("Deleting a task removes it permanently from storage. Click OK if you wish to proceed.");
+
+  // Delete the task and refresh the page.
   localStorage.removeItem(task_key);
-  //location.reload();
+  location.reload();
 }
 
+// Run the script to initialise the program.
 initScript();
