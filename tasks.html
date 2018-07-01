@@ -21,7 +21,6 @@
           <a style="font-size: 1.875em" href="#">☰</a>
           <ul class="sub-menu">
             <li><a href="home.html">Home</a></li>
-            <li><a href="timetable.html">Timetable</a></li>
             <li><a href="tasks.html">Tasks</a></li>
           </ul>
         </li>
@@ -42,12 +41,12 @@
   </div>
 
   <!-- Wrapper for the task display portion of the site.
-  In real-time, this section would contain the task 'cards'. (a 400x250 div displaying the task's information)
+  In real-time, this section would contain the task 'cards'. (a 400x250px div displaying the task's information)
   This is obviously variable depending on how many tasks are to be generated. -->
   <div id="tasks-wrapper">
-    <!-- Modal window triggered by clicking the new task button -->
+    <!-- Modal window triggered by clicking the new task button. -->
     <div id="new-task-modal" class="modal">
-      <div class="modal-content animate" id="new-task-form"">
+      <div class="modal-content animate" id="new-task-form">
         <div class="modal-content-wrapper" id="new-task-submission-fields">
           <label class="modal-label" for="taskname">The name of this task is:</label>
           <input id="task-name" class="modal-input" type="text" placeholder="e.g. Prepare speech (max. 30 characters)" name="taskname" required/>
@@ -60,16 +59,18 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal window triggered by clicking the edit task button. -->
     <div id="edit-task-modal" class="modal">
       <div class="modal-content animate" id="edit-task-form">
         <div class="modal-content-wrapper" id="edit-task-submission-fields">
           <label class="modal-label" for="edittaskname">Change the task name to:</label>
-          <input id="edit-name" class="modal-input" type="text" placeholder="e.g. Prepare speech (max. 30 characters)" name="edittaskname" required/>
+          <input id="edit-task-name" class="modal-input" type="text" placeholder="e.g. Prepare speech (max. 30 characters)" name="edittaskname" required/>
           <label class="modal-label" for="tasksubject">Change the task subject to:</label>
-          <input id="edit-subject" class="modal-input" type="text" placeholder="e.g. English (max. 30 characters)" name="edittasksubject" required/>
+          <input id="edit-task-subject" class="modal-input" type="text" placeholder="e.g. English (max. 30 characters)" name="edittasksubject" required/>
           <label class="modal-label" for="taskdate">Change the task date to:</label>
-          <input id="edit-date" class="modal-input" type="text" placeholder="DD/MM/YYYY" name="edittaskdate" required/>
-          <button class="submission-button" id="edit-task" type="submit">Edit task ✐</button>
+          <input id="edit-task-date" class="modal-input" type="text" placeholder="DD/MM/YYYY" name="edittaskdate" required/>
+          <button class="submission-button" id="edit-task" onclick="editTask(tasks, task_to_edit)">Edit task ✐</button>
           <button class="submission-button" id="edit-cancel" onclick="document.getElementById('edit-task-modal').style.display='none'">Cancel ✖</button>
         </div>
       </div>

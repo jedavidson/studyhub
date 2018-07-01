@@ -319,7 +319,7 @@ html, body {
   overflow: auto;
   background-color: rgb(0,0,0); /* In case the opaque filter doesn't work, fall back to solid black */
   background-color: rgba(0,0,0,0.9); /* Opaque filter */
-  padding-top: 95px;
+  padding-top: 13%;
 }
 
 /* Modal content */
