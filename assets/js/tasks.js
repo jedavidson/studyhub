@@ -1,5 +1,8 @@
 // JavaScript for the tasks feature.
 
+// TODO: Restructure data? to make editing functionality work as intended.
+// TODO: Make dateOK function work properly.
+
 // Declare the identifier for the tasks array as a global.
 var tasks;
 
@@ -8,10 +11,13 @@ var task_to_edit;
 
 // Base class for a Task object.
 class Task {
-  constructor(name, subject, date) {
+  constructor(name, subject, date, true_index) {
     this.name = name;
     this.subject = subject;
     this.date = date;
+    /* The true index value is simply the task's key in localStorage.
+       This is important, because if a user sorts the tasks in a non-standard order, their IDs in storage will not align with their element IDs.*/
+    this.true_index = true_index;
   }
 }
 
@@ -35,7 +41,10 @@ function getTasksFromStorage() {
   // Loop through the browser data store.
   for (var i = 0; i < localStorage.length; i++) {
     var key_name = localStorage.key(i);
-    // If the object's key is a task (ie. starts with the characters 'task'), deserialize it and add it to the tasks array.
+    /* If the object's key is a task (ie. starts with the characters 'task'), deserialize it and add it to the tasks array.
+
+       This was written when Timetable was still a planned feature. Not necessary now, since only tasks will populate localStorage,
+       but it works regardless and it opens up the potential for other data to be stored in the future, not just tasks. */
     if (key_name.slice(0,4) == 'task') {
       var deserialized_obj = JSON.parse(localStorage.getItem(key_name));
       tasks_array.push(deserialized_obj);
@@ -70,6 +79,7 @@ function displayTasks(tasks_array) {
   if (sessionStorage.key(0) == 'tasks-sorted') {
     // Parse the stored array and override the passed in tasks array.
     tasks_array = JSON.parse(sessionStorage.getItem(sessionStorage.key(0)));
+
     // Remove the array from sessionStorage after the override is complete.
     sessionStorage.removeItem(sessionStorage.key(0));
   }
@@ -139,9 +149,11 @@ function displayTasks(tasks_array) {
     delete_button.className = 'delete-buttons';
     document.getElementById(task_options_id).appendChild(edit_button);
     document.getElementById(task_options_id).appendChild(delete_button);
-    document.getElementById(edit_button_id).onclick = function () { editButtonOnClick(task_id) };
+    document.getElementById(edit_button_id).setAttribute('title', tasks_array[i].true_index); // For simplicity's sake, set the true index of the task in localStorage as the button's title.
+    document.getElementById(edit_button_id).onclick = function () { editButtonOnClick(this.id, tasks) };
     document.getElementById(edit_button_id).innerHTML = 'Edit ✐';
-    document.getElementById(delete_button_id).onclick = function () { deleteTask(task_id) };
+    document.getElementById(edit_button_id).setAttribute('title', tasks_array[i].true_index); // For simplicity's sake, set the true index of the task in localStorage as the button's title.
+    document.getElementById(delete_button_id).onclick = function () { deleteTask(this.id) };
     document.getElementById(delete_button_id).innerHTML = 'Delete ✖';
   }
 }
@@ -161,6 +173,7 @@ function parseDate(date) {
 }
 
 // Function for checking that the entered date is valid. (ie. is not some date in the past or, trivially, the current date)
+// Broken?
 function dateOK(date) {
   // Get the current date and target date as parsed integers reflecting milliseconds since the epoch.
   var current_date = new Date();
@@ -172,7 +185,6 @@ function dateOK(date) {
   // Check if the date is in the past, since if it is less time will have passed from the epoch until now.
   if (target_date > current_date) {
     // Check to see if the month is less than or equal to 12.
-    console.log(Number(date.slice(3, 5)) <= 11);
     if (Number(date.slice(3, 5)) <= 11) {
       // Check to see if the day entered is valid, depending on which month it is.
       switch (date.slice(3, 5)) {
@@ -214,7 +226,6 @@ function dateOK(date) {
           break;
       }
     }
-    return true;
   }
   return valid;
 }
@@ -262,11 +273,9 @@ function createTask(tasks_array) {
 
   // Check if the name, subject and date are valid. (name and subject need to be 30 characters or less, date needs to be in DD/MM/YYYY format)
   if (dateOK(desired_date) && characterLimitOK(desired_name, desired_subject)) {
-    // Create a new task object.
-    new_task = new Task(desired_name, desired_subject, desired_date);
-
-    // Serialize the object, then write it to the browser's storage.
+    // Create the new task object, serialize the object, then write it to the browser's storage.
     task_key = 'task' + String(localStorage.length + 1);
+    new_task = new Task(desired_name, desired_subject, desired_date, task_key); // True index = task_key
     localStorage.setItem(task_key, JSON.stringify(new_task));
 
     // Reload the page.
@@ -282,9 +291,18 @@ function createTask(tasks_array) {
 }
 
 // Prerequisite function for consolidating the necessary JavaScript commands executed upon clicking the edit task button.
-function editButtonOnClick(task_key) {
-  // Return the task's key in localStorage (ie. the number portion of its assigned HTML ID) so that it can be edited.
-  task_to_edit = task_key;
+function editButtonOnClick(button_id, tasks_array) {
+  // Return the task's key in localStorage (ie. title of the button) to the script's global namespace so that it can be edited.
+  task_to_edit = document.getElementById(button_id).getAttribute('title');
+
+  // Automatically set the field values to those of the task prior to editing, for easier editing.
+  for (i = 0; i < tasks_array.length; i++) {
+    if (tasks_array[i].true_index == task_to_edit) {
+      document.getElementById('edit-task-name').value = tasks_array[i].name;
+      document.getElementById('edit-task-subject').value = tasks_array[i].subject;
+      document.getElementById('edit-task-date').value = tasks_array[i].date;
+    }
+  }
 
   // Unhide the editing modal.
   document.getElementById('edit-task-modal').style.display = 'block'
@@ -329,10 +347,12 @@ function editTask(tasks_array, storage_key) {
 }
 
 // Function for deleting a task.
-function deleteTask(task_key) {
-  console.log(task_key);
+function deleteTask(button_id) {
   // Prompt the user to confirm that they did indeed want to delete the task.
   alert("Deleting a task removes it permanently from storage. Click OK if you wish to proceed.");
+
+  // Get the task's true index stored in the title attribute of the button.
+  task_key = document.getElementById(button_id).getAttribute('title');
 
   // Delete the task and refresh the page.
   localStorage.removeItem(task_key);
