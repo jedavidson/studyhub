@@ -1,8 +1,5 @@
 // JavaScript for the tasks feature.
 
-// TODO: Restructure data? to make editing functionality work as intended.
-// TODO: Make dateOK function work properly.
-
 // Declare the identifier for the tasks array as a global.
 var tasks;
 
@@ -75,13 +72,10 @@ function removePastTasks(tasks_array) {
 
 // Function for interpreting raw task data into a visual display on the tasks page.
 function displayTasks(tasks_array) {
-  // If a sorted array exists in session storage, override the tasks array with the sorted array.
-  if (sessionStorage.key(0) == 'tasks-sorted') {
+  // If a sorted array (or arrays) exists in session storage, override the tasks array with the most recent sorted array.
+  if (sessionStorage.length > 0) {
     // Parse the stored array and override the passed in tasks array.
-    tasks_array = JSON.parse(sessionStorage.getItem(sessionStorage.key(0)));
-
-    // Remove the array from sessionStorage after the override is complete.
-    sessionStorage.removeItem(sessionStorage.key(0));
+    tasks_array = JSON.parse(sessionStorage.getItem(sessionStorage.key(sessionStorage.length - 1)));
   }
 
   // Generate the HTML elements for each task object in the array.
@@ -152,7 +146,7 @@ function displayTasks(tasks_array) {
     document.getElementById(edit_button_id).setAttribute('title', tasks_array[i].true_index); // For simplicity's sake, set the true index of the task in localStorage as the button's title.
     document.getElementById(edit_button_id).onclick = function () { editButtonOnClick(this.id, tasks) };
     document.getElementById(edit_button_id).innerHTML = 'Edit ✐';
-    document.getElementById(edit_button_id).setAttribute('title', tasks_array[i].true_index); // For simplicity's sake, set the true index of the task in localStorage as the button's title.
+    document.getElementById(delete_button_id).setAttribute('title', tasks_array[i].true_index); // For simplicity's sake, set the true index of the task in localStorage as the button's title.
     document.getElementById(delete_button_id).onclick = function () { deleteTask(this.id) };
     document.getElementById(delete_button_id).innerHTML = 'Delete ✖';
   }
@@ -167,64 +161,74 @@ function parseDate(date) {
 
   // Convert this given date into milliseconds since the epoch.
   var date_unparsed = new Date(date_year, date_month - 1, date_day);
-  var date = Date.parse(date_unparsed);
+  var date_parsed = Date.parse(date_unparsed);
 
-  return date;
+  return date_parsed;
 }
 
 // Function for checking that the entered date is valid. (ie. is not some date in the past or, trivially, the current date)
-// Broken?
 function dateOK(date) {
   // Get the current date and target date as parsed integers reflecting milliseconds since the epoch.
   var current_date = new Date();
+  current_date = Date.parse(current_date);
   var target_date = parseDate(date);
 
   // Flag for determining if the date passes all of the checks.
   var valid = false;
 
-  // Check if the date is in the past, since if it is less time will have passed from the epoch until now.
-  if (target_date > current_date) {
-    // Check to see if the month is less than or equal to 12.
-    if (Number(date.slice(3, 5)) <= 11) {
-      // Check to see if the day entered is valid, depending on which month it is.
-      switch (date.slice(3, 5)) {
-        // Months with 31 days.
-        case 1: // January
-        case 3: // March
-        case 5: // May
-        case 7: // July
-        case 8: // August
-        case 10: // October
-        case 12: // December
-          if (Number(date.slice(0, 2)) <= 31) {
+  // Check to see if the month is less than or equal to 12.
+  if (Number(date.slice(3, 5)) <= 11) {
+    // Check to see if the day entered is valid, depending on which month it is.
+    switch (Number(date.slice(3, 5))) {
+      // Months with 31 days.
+      case 1: // January
+      case 3: // March
+      case 5: // May
+      case 7: // July
+      case 8: // August
+      case 10: // October
+      case 12: // December
+        if (Number(date.slice(0, 2)) <= 31) {
+          // Finally, check if the time since the epoch is greater from today's date or the entered date.
+          if (target_date > current_date) {
             valid = true;
           }
-          break;
-        // Months with 30 days.
-        case 4: // April
-        case 6: // June
-        case 9: // September
-        case 11: // November
-          if (Number(date.slice(0, 2)) <= 30) {
+        }
+        break;
+      // Months with 30 days.
+      case 4: // April
+      case 6: // June
+      case 9: // September
+      case 11: // November
+        if (Number(date.slice(0, 2)) <= 30) {
+          // Finally, check if the time since the epoch is greater from today's date or the entered date.
+          if (target_date > current_date) {
             valid = true;
           }
-          break;
-        // The complex case of February.
-        case 2:
-          // Check if the year is a leap year. (ie. divisible by 4)
-          if (Number(date.slice(6)) % 4 == 0) {
-            // If so, the day can be, at most, 29.
-            if (Number(date.slice(0, 2)) <= 29) {
-              valid = true;
-            }
-          // If not, the day can be, at most, 28.
-          } else {
-            if (Number(date.slice(0, 2)) <= 28) {
+        }
+        break;
+
+      // The complex case of February.
+      case 2:
+        // Check if the year is a leap year. (ie. divisible by 4)
+        if (Number(date.slice(6)) % 4 == 0) {
+          // If so, the day can be, at most, 29.
+          if (Number(date.slice(0, 2)) <= 29) {
+            // Finally, check if the time since the epoch is greater from today's date or the entered date.
+            if (target_date > current_date) {
               valid = true;
             }
           }
-          break;
-      }
+        // If not, the day can be, at most, 28.
+        } else {
+          if (Number(date.slice(0, 2)) <= 28) {
+            // Finally, check if the time since the epoch is greater from today's date or the entered date.
+            if (target_date > current_date) {
+              valid = true;
+            }
+          }
+        }
+        break;
     }
   }
   return valid;
@@ -244,12 +248,12 @@ function sortTasks(sort_method, tasks_array) {
   switch (sort_method) {
     case 'nameorder':
       // Sort the array alphabetically in terms of the task names.
-      sorted_array = tasks_array.sort(function(a, b) { return a.name > b.name ? 1 : -1; });
+      sorted_array = tasks_array.sort(function(a, b) { return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1; });
       tasks_array = sorted_array;
       break;
     case 'subjectorder':
       // Sort the array alphabetically in terms of the task subjects.
-      sorted_array = tasks_array.sort(function(a, b) { return a.subject > b.subject ? 1 : -1; });
+      sorted_array = tasks_array.sort(function(a, b) { return a.subject.toLowerCase() > b.subject.toLowerCase() ? 1 : -1; });
       tasks_array = sorted_array;
       break;
     case 'dateorder':
@@ -353,6 +357,7 @@ function deleteTask(button_id) {
 
   // Get the task's true index stored in the title attribute of the button.
   task_key = document.getElementById(button_id).getAttribute('title');
+  console.log(task_key);
 
   // Delete the task and refresh the page.
   localStorage.removeItem(task_key);
