@@ -1,14 +1,10 @@
 # StudyHub
 A web tool built using HTML, CSS and JavaScript that allows users to manage their study.
 
-Made for my HSC Software Design and Development major work.
+Made for my 2018 HSC Software Design and Development major work.
 
 ## Features
 - Tasks
-- Timetable
-
-## Dependencies
-- jQuery
 
 ## Requirements
 - An internet connection
